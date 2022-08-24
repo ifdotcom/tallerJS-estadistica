@@ -15,11 +15,12 @@ function precioTotal(precio, cupon) {
     let descuento = 15;
     let precioFinal;
     precioFinal = (precio * (100 - descuento)) / 100;
-    finalPrice.innerText = precioFinal;
+        finalPrice.innerText = `Usted tiene el 20% de descuento, precio final: $${precioFinal}`;
+
   } else if (cupon === "PLATZI50") {
     let descuento = 50;
     precioFinal = (precio * (100 - descuento)) / 100;
-    finalPrice.innerText = precioFinal;
+    finalPrice.innerText = `Usted tiene el 50% de descuento, precio final: $${precioFinal}`;
   }else{
     finalPrice.innerText = "Cupón inválido";
 
