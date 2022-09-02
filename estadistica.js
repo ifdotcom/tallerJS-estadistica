@@ -1,9 +1,14 @@
 //! Promedio
 
-let arrAges = [23, 23, 45, 56, 78, 80, 30, 12, 80, 34, 80, 23]; // 15 20 23 40 55 80
+let arrAges = [
+  38, 38, 38, 40, 35, 39, 37, 37, 40, 37, 36, 35, 36, 40, 40, 42, 41, 42, 39,
+  41, 38, 39, 35, 36, 42, 42,
+]; // 15 20 23 40 55 80
 let mediana;
 let avgAges;
 let moda;
+let varEstadistica;
+let frecAbsoluta;
 const avgArr = (arr) => {
   let totalAges = arr.length;
   let sumAges = 0;
@@ -77,17 +82,17 @@ console.log("La mediana es: " + mediana);
 
 const modArr = (arr) => {
   const listElements = {};
-  
+
   for (let i = 0; i < arr.length; i++) {
     const element = arr[i];
     // si existe el valor del índice se le suma 1, si solo existe una vez será = 1
     if (listElements[element]) {
-      listntsEleme[element] += 1;
+      listElements[element] += 1;
     } else {
       listElements[element] = 1;
     }
   }
-
+  // console.log(listElements)
   let arrBi = Object.entries(listElements);
   let arrBiOrder = orderArrBid(arrBi, 1);
   let numberMax = arrBiOrder[arrBiOrder.length - 1];
@@ -103,6 +108,48 @@ const modArr = (arr) => {
 
 modArr(arrAges);
 console.log("La moda es: " + moda);
+
+//! Frecuenta absoluta
+
+const frecArr = (arr) => {
+  const listElements = {};
+
+  for (let i = 0; i < arr.length; i++) {
+    const element = arr[i];
+
+    if (listElements[element]) {
+      listElements[element] += 1;
+    } else {
+      listElements[element] = 1;
+    }
+  }
+  varEstadistica = Object.keys(listElements);
+  varEstadistica.forEach((element) => {
+    let p = document.createElement("p");
+    p.innerText = element;
+    document.querySelector(".nums").appendChild(p);
+  });
+
+  frecAbsoluta = Object.values(listElements);
+  frecAbsoluta.forEach((element) => {
+    let p = document.createElement("p");
+    p.innerText = element;
+    document.querySelector(".frec").appendChild(p);
+  });
+  let sumFrecAbs = frecAbsoluta.reduce((a, b) => a + b);
+  let p = document.createElement("p");
+  p.innerText = `Sumatoria: ${sumFrecAbs}`;
+  document.querySelector(".frec").appendChild(p);
+};
+
+frecArr(arrAges);
+
+
+//! Frecuencia relativa 
+
+
+
+
 
 // ordernar array
 function orderArr(arr) {
