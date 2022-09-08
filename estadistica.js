@@ -12,8 +12,34 @@ let frecAbsoluta = [];
 let sumFrecAbs;
 let frecRelativa = [];
 let sumFrecRel;
+let percentages = [];
 let sumPercent = 0;
 let frecAbsAcum = [];
+let sumFrecAbsAcum;
+let frecRelAcum = [];
+let sumFrecRelAcum;
+let percAcum = [];
+let sumPercAcum;
+let arrGeneral = [
+  frecAbsoluta,
+  frecRelativa,
+  percentages,
+  frecAbsAcum,
+  frecRelAcum,
+  percAcum,
+];
+// ordernar array
+const orderArr = (arr) => {
+  const list = arr.sort((a, b) => a - b);
+  return list;
+};
+
+// ordernar array bidimensional
+const orderArrBid = (arr, i) => {
+  const list = arr.sort((a, b) => a[i] - b[i]);
+  return list;
+};
+
 const avgArr = (arr) => {
   let totalAges = arr.length;
   let sumAges = 0;
@@ -119,6 +145,8 @@ console.log("La moda es: " + moda);
 
 const frecArr = (arr) => {
   const listElements = {};
+  let pContainer = document.querySelector(".frec");
+  let numeros = document.querySelector(".nums");
   for (let i = 0; i < arr.length; i++) {
     const element = arr[i];
     if (listElements[element]) {
@@ -131,90 +159,162 @@ const frecArr = (arr) => {
   varEstadistica.forEach((element) => {
     let p = document.createElement("p");
     p.innerText = element;
-    document.querySelector(".nums").appendChild(p);
+    let sumatoria = document.createElement("p");
+    numeros.appendChild(p);
   });
+  let sumatoria = document.createElement("p");
+  sumatoria.innerText = `Sumatoria`;
+  numeros.appendChild(sumatoria);
+
   let valuesFrecAbs = Object.values(listElements);
 
   valuesFrecAbs.forEach((element) => {
     let p = document.createElement("p");
     p.innerText = element;
-    document.querySelector(".frec").appendChild(p);
+    pContainer.appendChild(p);
     frecAbsoluta.push(element);
   });
   sumFrecAbs = frecAbsoluta.reduce((a, b) => a + b);
   let p = document.createElement("p");
-  p.innerText = `Sumatoria: ${sumFrecAbs}`;
-  document.querySelector(".frec").appendChild(p);
+  p.innerText = `${sumFrecAbs}`;
+  pContainer.appendChild(p);
 };
 
 frecArr(arrAges);
 
 //! Frecuencia relativa
 
-function frecRelArr(arr) {
+const frecRelArr = (arr) => {
+  let pContainer = document.querySelector(".frecRel");
+
   arr.forEach((element) => {
     let p = document.createElement("p");
     let frecRela = (element / sumFrecAbs).toFixed(4);
     p.innerText = frecRela;
-    document.querySelector(".frecRel").appendChild(p);
+    pContainer.appendChild(p);
     frecRelativa.push(parseFloat(frecRela));
   });
   sumFrecRel = Math.round(frecRelativa.reduce((a, b) => a + b));
   let p = document.createElement("p");
-  p.innerText = `Sumatoria: ${sumFrecRel}`;
-  document.querySelector(".frecRel").appendChild(p);
-}
+  p.innerText = `${sumFrecRel}`;
+  pContainer.appendChild(p);
+};
 
 frecRelArr(frecAbsoluta);
 
 //! Porcentaje
-function percenArr(arr) {
+const percenArr = (arr) => {
+  let pContainer = document.querySelector(".percent");
+
   arr.forEach((element) => {
     let p = document.createElement("p");
     let percent = (element * 100).toFixed(2);
+    percentages.push(parseFloat(percent));
     p.innerText = percent;
-    document.querySelector(".percent").appendChild(p);
+    pContainer.appendChild(p);
     sumPercent += element;
   });
   let p = document.createElement("p");
-  p.innerText = `Sumatoria: ${Math.round(sumPercent) * 100}`;
-  document.querySelector(".percent").appendChild(p);
-}
+  p.innerText = `${Math.round(sumPercent) * 100}`;
+  pContainer.appendChild(p);
+};
 
 percenArr(frecRelativa);
 
-//! Frecuencia absout acumulada
+//! Frecuencia absoluta acumulada
 
-function frecAcum(arr) {
-  console.log(arr);
+const frecAcum = (arr) => {
   let listElements = {};
+  let pContainer = document.querySelector(".frecAbsAcum");
 
   arr.forEach((element, i) => {
-    const indices = [];
-    indices.push(i);
-    // console.log(indices);
-    // console.log(element);
-    listElements[indices] = element;
+    listElements[i] = element;
 
     let valores = Object.values(listElements);
-    // guardar en un array para despues mostrar
-    frecAbsAcum.push(valores.reduce((a, b) => a + b));
-    // console.log(valores.reduce((a, b) => a + b));
-  });
 
-  console.log(frecAbsAcum);
-}
+    sumFrecAbsAcum = valores.reduce((a, b) => a + b);
+    frecAbsAcum.push(sumFrecAbsAcum);
+
+    let p = document.createElement("p");
+    p.innerText = sumFrecAbsAcum;
+    pContainer.appendChild(p);
+  });
+};
 
 frecAcum(frecAbsoluta);
 
-// ordernar array
-function orderArr(arr) {
-  const list = arr.sort((a, b) => a - b);
-  return list;
+//! Frecuencia relativa acumulada
+
+const frecAcumRel = (arr) => {
+  let listElements = {};
+  let pContainer = document.querySelector(".frecRelAcum");
+
+  arr.forEach((element, i) => {
+    listElements[i] = element;
+
+    let valores = Object.values(listElements);
+
+    sumFrecRelAcum = valores.reduce((a, b) => a + b);
+    frecRelAcum.push(sumFrecRelAcum);
+    let p = document.createElement("p");
+    p.innerText = sumFrecRelAcum.toFixed(4);
+    pContainer.appendChild(p);
+  });
+
+  let lastChildP = pContainer.lastChild;
+  lastChildP.textContent = parseFloat(Math.round(lastChildP.textContent));
+};
+
+frecAcumRel(frecRelativa);
+
+//! Porcentaje acumulado
+
+const percAcumRel = (arr) => {
+  let listElements = {};
+  let pContainer = document.querySelector(".percAcum");
+
+  arr.forEach((element, i) => {
+    listElements[i] = element;
+
+    let valores = Object.values(listElements);
+    sumPercAcum = valores.reduce((a, b) => a + b);
+    sumPercAcum = (sumPercAcum * 100).toFixed(2);
+
+    percAcum.push(parseFloat(sumPercAcum));
+    let p = document.createElement("p");
+    p.innerText = sumPercAcum;
+    pContainer.appendChild(p);
+  });
+
+  let lastChildP = pContainer.lastChild;
+  lastChildP.textContent = parseFloat(Math.round(lastChildP.textContent));
+};
+
+percAcumRel(frecRelativa);
+
+function tableFrec(arr) {
+  let arr1 = [];
+  let arr2 = [];
+  let el;
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length; j++) {
+      el = arr[j].shift();
+      console.log(el);
+    }
+  }
+  console.log(arr1);
+  console.log(arr2);
 }
 
-// ordernar array bidimensional
-function orderArrBid(arr, i) {
-  const list = arr.sort((a, b) => a[i] - b[i]);
-  return list;
-}
+tableFrec(arrGeneral);
+
+// dentro de la funcion
+//  let arr1 = [];
+//  for (let i = 0; i < arr.length; i++) {
+//    let element = arr[i].shift();
+
+//    arr1.push(element);
+//    arr2.push(arr1);
+//  }
+
+//  console.log(arr1);

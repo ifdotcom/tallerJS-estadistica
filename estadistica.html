@@ -1,25 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taller práctico de Javascript: Matemáticas y Estádistica básica</title>
-</head>
-<body>
-    <main>
-        <p>Promedio: </p>
-        <p>Tabla de Frecuencias</p>
-        <label for="">Variable estadistica</label>
-        <p class="nums"></p>
-        <label for="">Frecuencia absoluta</label>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>
+      Taller práctico de Javascript: Matemáticas y Estádistica básica
+    </title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="varEstatica">
+        <div class="title">
+          <label for="">Variable estadistica</label>
+        </div>
+        <div class="resultados">
+
+          <p class="nums"></p>
+        </div>
+      </div>
+      <div class="frecAbsoluta">
+        <div class="title">
+          <label for="">Frecuencia absoluta</label>
+        </div>
         <p class="frec"></p>
-        <label for="">Frecuencia relativa</label>
+      </div>
+      <div class="frecRelativa">
+        <div class="title">
+          <label for="">Frecuencia relativa</label>
+        </div>
         <p class="frecRel"></p>
-        <label for="">Porcentaje</label>
+      </div>
+      <div class="porcentaje">
+        <div class="title">
+          <label for="">Porcentaje</label>
+        </div>
         <p class="percent"></p>
-    </main>
+      </div>
+      <div class="frecAbsAcumulada">
+        <div class="title">
+          <label for="">Frecuencia absoluta acumulada</label>
+        </div>
+        <p class="frecAbsAcum"></p>
+      </div>
+      <div class="frecRelAcumu">
+        <div class="title">
+          <label for="">Frecuencia relativa acumulada</label>
+        </div>
+        <p class="frecRelAcum"></p>
+      </div>
+      <div class="porcAcumulado">
+        <div class="title">
+          <label for="">Porcentaje acumulado</label>
+        </div>
+        <p class="percAcum"></p>
+      </div>
+    </div>
+    <table></table>
 
     <script src="./estadistica.js"></script>
-</body>
+  </body>
 </html>

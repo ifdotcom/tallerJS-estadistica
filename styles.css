@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;500;700&display=swap');
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+body{
+  font-family: 'Mulish', sans-serif;
+}
+.container {
+  display: flex;
+  width: 100%;
+  text-align: center;
+}
+
+.container > div {
+  width: 20%;
+  border: 1px solid;
+}
+
+.title {
+  height: 80px;
+  border-bottom: 1px solid;
+  display: flex;
+  justify-content: center;
+
+  align-items: center;
+}
+
+.nums > p {
+  padding: 15px;
+}
+.frec > p {
+  padding: 15px;
+}
+.frecRel > p {
+  padding: 15px;
+}
+.percent > p {
+  padding: 15px;
+}
+.frecAbsAcum > p {
+  padding: 15px;
+}
+.frecRelAcum > p {
+  padding: 15px;
+}
+.percAcum > p {
+  padding: 15px;
+}
+
+.nums > p:last-child{
+  border-top: 1px solid;
+}
+.frec > p:last-child{
+  border-top: 1px solid;
+}
+.frecRel > p:last-child{
+  border-top: 1px solid;
+}
+.percent > p:last-child{
+  border-top: 1px solid;
+}
