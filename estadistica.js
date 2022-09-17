@@ -4,43 +4,39 @@ let arrAges = [
   38, 38, 38, 40, 35, 39, 37, 37, 40, 37, 36, 35, 36, 40, 40, 42, 41, 42, 39,
   41, 38, 39, 35, 36, 42, 42,
 ];
-let mediana;
-let avgAges;
-let moda;
-let varEstadistica;
-let frecAbsoluta = [];
-let sumFrecAbs;
-let frecRelativa = [];
-let sumFrecRel;
-let percentages = [];
-let sumPercent = 0;
-let frecAbsAcum = [];
-let sumFrecAbsAcum;
-let frecRelAcum = [];
-let sumFrecRelAcum;
-let percAcum = [];
-let sumPercAcum;
-let arrGeneral = [
-  frecAbsoluta,
-  frecRelativa,
-  percentages,
-  frecAbsAcum,
-  frecRelAcum,
-  percAcum,
-];
+let mediana,
+  avgAges,
+  moda,
+  varEstadistica,
+  variablesEst = [],
+  frecAbsoluta = [],
+  sumFrecAbs,
+  frecRelativa = [],
+  sumFrecRel,
+  percentages = [],
+  sumPercent = 0,
+  frecAbsAcum = [],
+  sumFrecAbsAcum,
+  frecRelAcum = [],
+  sumFrecRelAcum,
+  percAcum = [],
+  sumPercAcum;
+
+const estadistica = {};
+console.log(estadistica);
 // ordernar array
-const orderArr = (arr) => {
+estadistica.orderArr = orderArr = (arr) => {
   const list = arr.sort((a, b) => a - b);
   return list;
 };
 
 // ordernar array bidimensional
-const orderArrBid = (arr, i) => {
+estadistica.orderArrBid = orderArrBid = (arr, i) => {
   const list = arr.sort((a, b) => a[i] - b[i]);
   return list;
 };
 
-const avgArr = (arr) => {
+estadistica.avgArr = avgArr = (arr) => {
   let totalAges = arr.length;
   let sumAges = 0;
   //! método for
@@ -72,7 +68,7 @@ console.log("El promedio es: " + avgAges);
 //! Mediana
 
 // Función para saber si elarray es par o impar y obtener la mediana
-const medArr = (arr) => {
+estadistica.medArr = medArr = (arr) => {
   //! método sort
   // function ordernar(valorAcumlado, nuevoValor) {
   //   if (valorAcumlado > nuevoValor) {
@@ -97,7 +93,7 @@ const medArr = (arr) => {
     indexArrParA = arrOrder[arrOrder.length / 2];
     indexArrParB = arrOrder[arrOrder.length / 2 - 1];
     listaMedios.push(indexArrParA, indexArrParB);
-    mediana = avgArr(listaMedios);
+    mediana = estadistica.avgArr(listaMedios);
   } else {
     indexArrImpar = Math.floor(arrOrder.length / 2);
     mediana = arrOrder[indexArrImpar];
@@ -112,7 +108,7 @@ console.log("La mediana es: " + mediana);
 
 // Función para calcular la moda de un array
 
-const modArr = (arr) => {
+estadistica.modArr = modArr = (arr) => {
   const listElements = {};
 
   for (let i = 0; i < arr.length; i++) {
@@ -143,7 +139,7 @@ console.log("La moda es: " + moda);
 
 //! Frecuenta absoluta
 
-const frecArr = (arr) => {
+ const frecArr = (arr) => {
   const listElements = {};
   let pContainer = document.querySelector(".frec");
   let numeros = document.querySelector(".nums");
@@ -159,15 +155,14 @@ const frecArr = (arr) => {
   varEstadistica.forEach((element) => {
     let p = document.createElement("p");
     p.innerText = element;
-    let sumatoria = document.createElement("p");
     numeros.appendChild(p);
   });
+
   let sumatoria = document.createElement("p");
   sumatoria.innerText = `Sumatoria`;
   numeros.appendChild(sumatoria);
 
   let valuesFrecAbs = Object.values(listElements);
-
   valuesFrecAbs.forEach((element) => {
     let p = document.createElement("p");
     p.innerText = element;
@@ -291,30 +286,3 @@ const percAcumRel = (arr) => {
 };
 
 percAcumRel(frecRelativa);
-
-function tableFrec(arr) {
-  let arr1 = [];
-  let arr2 = [];
-  let el;
-  for (let i = 0; i < arr.length; i++) {
-    for (let j = 0; j < arr.length; j++) {
-      el = arr[j].shift();
-      console.log(el);
-    }
-  }
-  console.log(arr1);
-  console.log(arr2);
-}
-
-tableFrec(arrGeneral);
-
-// dentro de la funcion
-//  let arr1 = [];
-//  for (let i = 0; i < arr.length; i++) {
-//    let element = arr[i].shift();
-
-//    arr1.push(element);
-//    arr2.push(arr1);
-//  }
-
-//  console.log(arr1);
