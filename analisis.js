@@ -130,7 +130,6 @@ function companyProjectionNextYear(companyName) {
 companyProjectionNextYear("Freelance");
 
 //! Función para sacar la mediana general
-
 function generalMediana() {
   // crear array que guarde la mediana de cada persona
 
@@ -143,7 +142,6 @@ function generalMediana() {
 }
 
 //! Funcion para obtener el top 10%
-
 function topTen() {
   // crear array que guarde la mediana de cada persona
 
