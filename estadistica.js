@@ -139,7 +139,7 @@ console.log("La moda es: " + moda);
 
 //! Frecuenta absoluta
 
- const frecArr = (arr) => {
+const frecArr = (arr) => {
   const listElements = {};
   let pContainer = document.querySelector(".frec");
   let numeros = document.querySelector(".nums");

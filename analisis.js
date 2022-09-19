@@ -1,6 +1,6 @@
 const companyElements = {};
-//! Funcion para encontrar persona
 
+//! Funcion para encontrar persona
 function findPerson(personName) {
   //! find -> devuelve el primer elemento(objeto) que encuentre de acuerdo a la condición
   return salarios.find((person) => person.name == personName);
@@ -9,7 +9,7 @@ function findPerson(personName) {
 //! Funcion para encontrar la mediana de salarios
 function medSalaries(personName) {
   let jobs = findPerson(personName).trabajos;
-  console.log(jobs);
+
   //! map -> devuelve un array con los elementos [500,550,800,...]
   const salaries = jobs.map((element) => {
     return element.salario;
@@ -23,7 +23,6 @@ function medSalaries(personName) {
 }
 
 //! Funcion para calcular la proyeccion salarial por persona
-
 function personalProjection(personName) {
   let jobs = findPerson(personName).trabajos;
   let growthPercentages = [];
@@ -46,7 +45,9 @@ function personalProjection(personName) {
   return newSalary;
 }
 //! Analisis empresarial
-/* 
+
+//! Función para reorganizar la información del array original y guardar la información en un objeto:
+/*
 nameEmpresa: {
    year: [salarie, salarie, salarie],
    year: [salarie, salarie, salarie]
@@ -56,7 +57,6 @@ nameEmpresa: {
    year: [salarie, salarie, salarie]
  },
  */
-
 function companyProjection(arr) {
   arr.forEach((element) => {
     const jobs = element.trabajos;
@@ -78,10 +78,8 @@ function companyProjection(arr) {
 
 companyProjection(salarios);
 
-//! Función para obetener la mediana por año de una empresa
-
+//! Función para obetener la mediana de un año en específico de una empresa
 function medianaByYear(company, year) {
-  
   if (!companyElements[company]) {
     console.log(`La empresa ${company} no existe`);
   } else if (!companyElements[company][year]) {
@@ -89,10 +87,83 @@ function medianaByYear(company, year) {
       `La empresa ${company} no registró salarios para el año ${year}`
     );
   } else {
-    return console.log(estadistica.medArr(companyElements[company][year]));
+    return estadistica.medArr(companyElements[company][year]);
   }
 }
 
-medianaByYear("Freelance", 2018);
+medianaByYear("Freelance", 2020);
 
+//! Función para hacer la proyección a un año por empresa
+function companyProjectionNextYear(companyName) {
+  if (companyElements[companyName]) {
+    //obtener las Keys(años)
+    let years = Object.keys(companyElements[companyName]);
 
+    //guardar en un array la mediana de cada año -> map hace el array e itera cada año, por cada uno ejecuta la funcion medianaByYear
+    let medianasList = years.map((year) => {
+      return medianaByYear(companyName, year);
+    });
+    console.log(medianasList);
+    // Calcular la mediana de las medianas por año
+    let growthPercentages = [];
+    for (let i = 1; i < medianasList.length; i++) {
+      const currentMediana = medianasList[i];
+      const previousMediana = medianasList[i - 1];
+      // crecimiento año con año
+      const growth = currentMediana - previousMediana;
+      // porcentaje de crecimiento
+      const growthPercentage = growth / previousMediana;
+      growthPercentages.push(growthPercentage);
+    }
+    const medianaGrowth = estadistica.medArr(growthPercentages);
+    const lastMediana = medianasList[medianasList.length - 1];
+
+    let increase = lastMediana * medianaGrowth;
+    let newMediana = increase + lastMediana;
+
+    return newMediana;
+  } else {
+    console.log("La empresa no existe");
+  }
+}
+
+companyProjectionNextYear("Freelance");
+
+//! Función para sacar la mediana general
+
+function generalMediana() {
+  // crear array que guarde la mediana de cada persona
+
+  let medianasList = salarios.map((person) => {
+    return medSalaries(person.name);
+  });
+
+  let mediana = estadistica.medArr(medianasList);
+  return mediana;
+}
+
+//! Funcion para obtener el top 10%
+
+function topTen() {
+  // crear array que guarde la mediana de cada persona
+
+  let medianasList = salarios.map((person) => {
+    return medSalaries(person.name);
+  });
+
+  // ordenar array de medianas
+  let medianasListOrder = estadistica.orderArr(medianasList);
+
+  // calcular el 10% del total de medianas -> 20 / 10
+  let percentage = medianasListOrder.length / 10;
+
+  // Marcar el limite para sacar al porcentaje anterior
+  let limit = medianasListOrder.length - percentage;
+
+  // utilizar slice o splice para obtener solo el porcentaje
+  // slice retorna la seccion que se requiere, no modifica el array original
+  // splice retorna la seccion que se requiere, modifica el arrat original
+  let top = medianasListOrder.slice(limit, medianasListOrder.length);
+  console.log(medianasListOrder, percentage, limit, top);
+  return top;
+}
